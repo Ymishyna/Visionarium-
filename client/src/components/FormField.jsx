@@ -1,9 +1,9 @@
 import React from "react";
 
-const InputField = () => {
+const FormField = () => {
     return (
         <div>Input Field</div>
     )
 }
 
-export default InputField;
+export default FormField;
