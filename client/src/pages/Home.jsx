@@ -19,29 +19,55 @@ const Home = () => {
     const [allPosts, setAllPosts] = useState(null); // all images state
     const [searchText, setSearchText] = useState(''); // search text state
 
-    // useEffect hook to fetch all posts from the server
-    useEffect(() => {
-        const fetchPosts = async () => {
-            setLoading(true);
+    // // useEffect hook to fetch all posts from the server
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         setLoading(true);
 
-            try {
-                const response = await fetch('http://localhost:8080/api/v1/post', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                if (response.ok) {
-                    const result = await response.json();
-                    setAllPosts(result.data.reverse());
-                }
-            } catch (err) {
-                alert(err);
-            } finally {
-                setLoading(false);
+    //         try {
+    //             const response = await fetch('http://localhost:8080/api/v1/post', {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //             })
+    //             if (response.ok) {
+    //                 const result = await response.json();
+    //                 setAllPosts(result.data.reverse());
+    //             }
+    //         } catch (err) {
+    //             alert(err);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     }
+
+    //     fetchPosts();
+    // }, []);
+
+    const fetchPosts = async () => {
+        setLoading(true);
+
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/post', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setAllPosts(result.data.reverse());
             }
+        } catch (err) {
+            alert(err);
+        } finally {
+            setLoading(false);
         }
+    };
 
+    useEffect(() => {
         fetchPosts();
     }, []);
 
