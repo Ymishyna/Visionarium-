@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Loader, Card, FormField } from "../components";
 
+
 const RenderCards = ({ data, title }) => {
     if (data?.length > 0) {
         return data.map((post) => <Card key={post.id} {...post} />);
@@ -17,6 +18,32 @@ const Home = () => {
     const [loading, setLoading] = useState(false); //loading state
     const [allPosts, setAllPosts] = useState(null); // all images state
     const [searchText, setSearchText] = useState(''); // search text state
+
+    // useEffect hook to fetch all posts from the server
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setLoading(true);
+
+            try {
+                const response = await fetch('http://localhost:8080/api/v1/post', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                if (response.ok) {
+                    const result = await response.json();
+                    setAllPosts(result.data.reverse());
+                }
+            } catch (err) {
+                alert(err);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchPosts();
+    }, []);
 
 
     return (
@@ -49,7 +76,7 @@ const Home = () => {
                                     title="No search results found" />
                             ) : (
                                 <RenderCards
-                                    data={[]}
+                                    data={allPosts}
                                     title="No posts found" />
                             )}
 
