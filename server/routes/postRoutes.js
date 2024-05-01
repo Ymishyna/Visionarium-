@@ -14,29 +14,32 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// GET all posts
 router.route('/').get(async (req, res) => {
   try {
-    const posts = await Post.find({});
-    res.status(200).json({ success: true, data: posts });
+    const posts = await Post.find({}); // Fetch all posts from a db
+    res.status(200).json({ success: true, data: posts }); // Send all posts as a response
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Fetching posts failed, please try again' });
+    res.status(500).json({ success: false, message: 'Fetching posts failed, please try again' }); // Send an error message
   }
 });
 
+// Create a post
 router.route('/').post(async (req, res) => {
   try {
     const { name, prompt, photo } = req.body;
-    const photoUrl = await cloudinary.uploader.upload(photo);
+    const photoUrl = await cloudinary.uploader.upload(photo); // Upload photo to cloudinary
 
+    // Create a new post in a db 
     const newPost = await Post.create({
-      name,
+      name,  
       prompt,
       photo: photoUrl.url,
     });
 
-    res.status(200).json({ success: true, data: newPost });
+    res.status(200).json({ success: true, data: newPost }); // Send the new post as a response
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
+    res.status(500).json({ success: false, message: 'Unable to create a post, please try again' }); // Send an error message
   }
 });
 
