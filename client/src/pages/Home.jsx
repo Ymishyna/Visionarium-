@@ -18,6 +18,9 @@ const Home = () => {
     const [loading, setLoading] = useState(false); //loading state
     const [allPosts, setAllPosts] = useState(null); // all images state
     const [searchText, setSearchText] = useState(''); // search text state
+    const [searchedResults, setSearchedResults] = useState(null); // search results state
+    const [searchTimeout, setSearchTimeout] = useState(null); // search timeout state
+
 
     // // useEffect hook to fetch all posts from the server
     // useEffect(() => {
@@ -71,6 +74,19 @@ const Home = () => {
         fetchPosts();
     }, []);
 
+    const handleSearchChange = (e) => {
+        clearTimeout(searchTimeout);
+
+        setSearchText(e.target.value);
+    
+        setSearchTimeout(
+          setTimeout(() => {
+            const searchResult = allPosts.filter((item) => item.name.toLowerCase().includes(searchText.toLowerCase()) || item.prompt.toLowerCase().includes(searchText.toLowerCase()));
+            setSearchedResults(searchResult);
+          }, 500),
+        );
+      };
+
 
     return (
         <section className="max-w-7xl mx-auto">
@@ -80,7 +96,13 @@ const Home = () => {
             </div>
 
             <div className="mt-16">
-                <FormField />
+                <FormField 
+                LabelName='Search Posts'
+                type='text'
+                name='text'
+                placeholder='Search Posts'
+                value={searchText}
+                handleChange={handleSearchChange}/>
 
             </div>
 
@@ -98,7 +120,7 @@ const Home = () => {
                         <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
                             {searchText ? (
                                 <RenderCards
-                                    data={[]}
+                                    data={searchedResults}
                                     title="No search results found" />
                             ) : (
                                 <RenderCards
