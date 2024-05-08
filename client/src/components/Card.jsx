@@ -5,13 +5,13 @@ import { downloadImage } from '../utils';
 
 const Card = ({ _id, name, prompt, photo }) => (
   // <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
-  <div className="rounded-xl group bg-gradient-to-r from-green-400 to-blue-700 relative shadow-card hover:shadow-cardhover card">
+  <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
     <img
       className="w-full h-auto object-cover rounded-xl"
       src={photo}
       alt={prompt}
     />
-    <div className="group-hover:flex flex-col max-h-[94.5%] hidden absolute bottom-0 left-0 right-0 bg-[#10131f] m-2 p-4 rounded-md">
+    <div className="group-hover:flex flex-col max-h-[94.5%] hidden absolute bottom-0 left-0 right-0 bg-gradient-to-r from-green-400 to-blue-700 m-2 p-4 rounded-md">
       <p className="text-white text-sm overflow-y-auto prompt">{prompt}</p>
 
       <div className="mt-5 flex justify-between items-center gap-2">
