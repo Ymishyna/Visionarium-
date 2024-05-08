@@ -205,7 +205,7 @@ const Home = () => {
         <section className="max-w-7xl mx-auto">
             <div>
                 <h1 className="font-extrabold text-gray-900 text-4xl">The Global Gallery</h1>
-                <p className="mt-4 text-gray-600 text-lg max-w-2xl">Explore a captivating array of imaginative and visually striking images crafted by DALL-E AI within Visionarium, where you can bring your unique visions to life."
+                <p className="mt-4 text-gray-600 text-lg max-w-2xl">Explore a captivating array of imaginative and visually striking images crafted by DALL-E AI within Visionarium, where you can bring your unique visions to life.
                 </p>
             </div>
 
